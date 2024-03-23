@@ -6,8 +6,8 @@ import { fetchMetadata } from "frames.js/next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "New api example",
-    description: "This is a new api example",
+    title: "my Frame",
+    description: "This is my Frame",
     other: {
       ...(await fetchMetadata(
         new URL(
@@ -25,9 +25,9 @@ export default async function Home() {
   return (
     <div>
       Multi-page example
-      <Link href={createDebugUrl(url)} className="underline">
+      {/* <Link href={createDebugUrl(url)} className="underline">
         Debug
-      </Link>
+      </Link> */}
     </div>
   );
 }

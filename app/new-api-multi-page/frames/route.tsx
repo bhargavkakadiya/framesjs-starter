@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-
+import Image from "next/image";
 const totalPages = 5;
 
 const frames = createFrames({
