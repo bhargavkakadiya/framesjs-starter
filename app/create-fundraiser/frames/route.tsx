@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-key */
-import { Button } from "frames.js/next";
-import { createFrames } from "frames.js/next";
+import { createFrames, Button } from "frames.js/next";
 
 const frames = createFrames({
-  basePath: "/examples/new-api-transaction",
+  basePath: "/create-fundraiser/frames",
 });
 
 const handleRequest = frames(async (ctx) => {
@@ -29,8 +28,8 @@ const handleRequest = frames(async (ctx) => {
 
   return {
     image: (
-      <div tw="bg-purple-800 text-white w-full h-full justify-center items-center">
-        Rent farcaster storage
+      <div tw="bg-white text-black w-full h-full justify-center items-center">
+        Create a Fundraiser 💚
       </div>
     ),
     imageOptions: {
@@ -38,9 +37,10 @@ const handleRequest = frames(async (ctx) => {
     },
     buttons: [
       <Button action="tx" target="/txdata" post_url="/frames">
-        Buy a unit
+        Create
       </Button>,
     ],
+    textInput: ["Fundraiser name", "Description", "Target Amount"],
   };
 });
 
