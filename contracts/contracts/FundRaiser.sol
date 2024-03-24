@@ -31,7 +31,7 @@ contract FundRaiser {
 
     function withdraw(uint256 _fdId) public {
         require(fundRaiser[_fdId].beneficiary == msg.sender, "Only the owner can withdraw");
-        require(fundRaiser[_fdId].donationsLeft == 0, "There's noting to withdraw");
+        require(fundRaiser[_fdId].donationsLeft >= 0, "There's noting to withdraw");
 
         payable(fundRaiser[_fdId].beneficiary).transfer(fundRaiser[_fdId].donationsLeft);
         fundRaiser[_fdId].donationsLeft = 0;
