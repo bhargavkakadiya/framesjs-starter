@@ -50,7 +50,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     params: {
       abi: fundraiserABI[0].abi,
       data,
-      to: "0x170a0b6c56036E40F164808240D525FE465E0A85",
+      to: "0x3433eB058e42347FA0C94246ba2073069F2186b1",
       value: parseEther("0").toString(), // 0.00004 ETH
     },
   };
