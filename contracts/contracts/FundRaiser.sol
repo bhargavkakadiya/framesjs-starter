@@ -57,6 +57,9 @@ contract FundRaiser {
         fundRaiser[frCount].fdId = frCount;
         fundRaiser[frCount].isAcceptingDonations = true;
         fundRaiser[frCount].beneficiary = msg.sender;
+        
+        frCount++;
+        
     }
 
     function killFundRaiser(uint256 _fdId) public {

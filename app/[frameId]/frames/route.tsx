@@ -16,7 +16,7 @@ async function getData(frameId: number) {
   if (frameId === undefined || frameId === null) return null;
 
   const data = await publicClient.readContract({
-    address: "0x3433eB058e42347FA0C94246ba2073069F2186b1",
+    address: "0xFFF5D3CD123bb65b61136EecE184440Ba70ECb9a",
     abi: fundraiserABI[0].abi,
     functionName: "fundRaiser",
     args: [BigInt(frameId)], // Convert frameId to bigint
