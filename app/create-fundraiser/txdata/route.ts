@@ -23,7 +23,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   // }
 
   const formData = body.untrustedData;
-  console.log(formData.address);
   const name = formData.inputText.split(",")[0];
   const description = formData.inputText.split(",")[1];
   const target = formData.inputText.split(",")[2];
@@ -46,6 +45,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
 
   const txData: FrameTransactionResponse = {
     chainId: `eip155:${baseSepolia.id}`,
+    // ignore the warning, this is a valid method
+    // @ts-ignore: Unreachable code error
     method: "eth_call",
     params: {
       abi: fundraiserABI[0].abi,
