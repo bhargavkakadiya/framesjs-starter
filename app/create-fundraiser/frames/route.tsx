@@ -204,9 +204,9 @@ const handleRequest = frames(async (ctx) => {
         </div>
         <div tw="flex flex-col">
           Please input below :<div></div>
-          <div>🚀 Name of your Campaign</div>
-          <div>📝 Description</div>
-          <div>💰 Goal in ether</div>
+          <div>🚀 Whats your mission?</div>
+          <div>📝 How you will use the funds?</div>
+          <div>💰 Set a goal in Ether</div>
           <br />
         </div>
       </div>
