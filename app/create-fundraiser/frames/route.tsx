@@ -35,6 +35,16 @@ const handleRequest = frames(async (ctx) => {
 
     const fdId = parseInt(frCountData) - 1;
     return {
+      accepts: [
+        {
+          id: "farcaster",
+          version: "vNext",
+        },
+        {
+          id: "xmtp",
+          version: "vNext",
+        },
+      ],
       image: (
         <div tw="bg-green-700 text-white w-full h-full justify-center items-center flex flex-col">
           <svg
@@ -113,7 +123,7 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="link"
-          target="https://framesjs-starter-puce.vercel.app/create-fundraiser">
+          target="https://fundcaster.vercel.app/create-fundraiser">
           Create Fundraiser
         </Button>,
         <Button
@@ -126,6 +136,16 @@ const handleRequest = frames(async (ctx) => {
   }
 
   return {
+    accepts: [
+      {
+        id: "farcaster",
+        version: "vNext",
+      },
+      {
+        id: "xmtp",
+        version: "vNext",
+      },
+    ],
     image: (
       <div tw="flex flex-col items-center">
         <svg
