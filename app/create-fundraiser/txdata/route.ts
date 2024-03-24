@@ -58,7 +58,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
 
 export async function POST(req: NextRequest): Promise<Response> {
   console.log("POST");
-  debugger;
   return getResponse(req);
 }
 

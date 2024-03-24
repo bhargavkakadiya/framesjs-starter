@@ -1,6 +1,25 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-// const totalPages = 4;
+import { baseSepolia } from "viem/chains";
+
+import { fundraiserABI } from "../txdata/contracts/fundraiser";
+
+import { createPublicClient, http } from "viem";
+
+const publicClient = createPublicClient({
+  chain: baseSepolia,
+  transport: http(),
+});
+
+async function getData() {
+  const data = await publicClient.readContract({
+    address: "0xFFF5D3CD123bb65b61136EecE184440Ba70ECb9a",
+    abi: fundraiserABI[0].abi,
+    functionName: "frCount",
+  });
+  console.log("data", data);
+  return data;
+}
 
 const frames = createFrames({
   basePath: "/create-fundraiser/frames",
@@ -11,8 +30,10 @@ const handleRequest = frames(async (ctx) => {
   // let data = {};
 
   if (ctx.message?.transactionId) {
-    console.log("transactionId", ctx);
-    const fdId = 0;
+    const frCountData = (await getData()).toString();
+    console.log("frCountData", frCountData);
+
+    const fdId = parseInt(frCountData) - 1;
     return {
       image: (
         <div tw="bg-green-700 text-white w-full h-full justify-center items-center flex flex-col">
@@ -97,7 +118,7 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="link"
-          target={`https://warpcast.com/~/compose?text=Please%20donate%20to%20my%20cause%20and%20join%20me%20for%20this%20cause&embeds[]=https://framesjs-starter-puce.vercel.app/${fdId}`}>
+          target={`https://warpcast.com/~/compose?text=Please%20donate%20to%20my%20cause%20and%20join%20me%20for%20this%20cause&embeds[]=https://fundcaster.vercel.app/${fdId}`}>
           Share your fundraiser
         </Button>,
       ],
