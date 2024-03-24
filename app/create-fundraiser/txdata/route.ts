@@ -10,7 +10,7 @@ import {
   http,
 } from "viem";
 import { optimism, holesky } from "viem/chains";
-import { storageRegistryABI } from "./contracts/storage-registry";
+// import { storageRegistryABI } from "./contracts/storage-registry";
 import { fundraiserABI } from "./contracts/fundraiser";
 
 export async function POST(
@@ -23,15 +23,17 @@ export async function POST(
   if (!frameMessage) {
     throw new Error("No frame message");
   }
+  
+  console.log("frameMessage", frameMessage);
 
   // Get current storage price
-  const units = 1n;
+  // const units = 1n;
 
-  const calldata = encodeFunctionData({
-    abi: storageRegistryABI,
-    functionName: "rent",
-    args: [BigInt(frameMessage.requesterFid), units],
-  });
+  // const calldata = encodeFunctionData({
+  //   abi: storageRegistryABI,
+  //   functionName: "rent",
+  //   args: [BigInt(frameMessage.requesterFid), units],
+  // });
 
   const publicClient = createPublicClient({
     chain: holesky,
@@ -58,7 +60,6 @@ export async function POST(
     params: {
       abi: fundraiserABI,
       to: "0xfa343b1755a7197b2164b8ca55cf425aee6c6efa", // fundraiser address
-      data: calldata,
       value: 0n,
     },
   });
