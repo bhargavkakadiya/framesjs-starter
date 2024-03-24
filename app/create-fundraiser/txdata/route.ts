@@ -9,7 +9,7 @@ import {
   getContract,
   http,
 } from "viem";
-import { optimism } from "viem/chains";
+import { optimism, holesky } from "viem/chains";
 import { storageRegistryABI } from "./contracts/storage-registry";
 import { fundraiserABI } from "./contracts/fundraiser";
 
@@ -34,7 +34,7 @@ export async function POST(
   });
 
   const publicClient = createPublicClient({
-    chain: optimism,
+    chain: holesky,
     transport: http(),
   });
 
@@ -53,13 +53,13 @@ export async function POST(
   // const unitPrice = await storageRegistry.read.price([units]);
 
   return NextResponse.json({
-    chainId: "eip155:10", // OP Mainnet 10
-    method: "eth_sendTransaction",
+    chainId: "eip155:10", // OP Mainnet 10 // holesky
+    method: "registerFundRaiser",
     params: {
       abi: fundraiserABI,
-      to: STORAGE_REGISTRY_ADDRESS,
+      to: "0xfa343b1755a7197b2164b8ca55cf425aee6c6efa", // fundraiser address
       data: calldata,
-      value: unitPrice.toString(),
+      value: 0n,
     },
   });
 }
