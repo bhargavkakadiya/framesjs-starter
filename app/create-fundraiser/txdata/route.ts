@@ -37,7 +37,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     args: [
       name || "GoFundMe",
       description || "GoFundMe for a degen cause!",
-      BigInt(target || "10"),
+      BigInt(parseEther(target || "0.99")),
       BigInt(farcasterId),
       BigInt(castId),
       BigInt(9999),
