@@ -1,5 +1,3 @@
-/** @format */
-
 import { FrameRequest, getFrameMessage } from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData, parseEther } from "viem";
@@ -37,8 +35,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       name || "GoFundMe",
       description || "GoFundMe for a degen cause!",
       BigInt(parseEther(target || "0.99")),
-      BigInt(farcasterId),
       BigInt(castId),
+      BigInt(farcasterId),
       BigInt(9999),
     ],
   });
