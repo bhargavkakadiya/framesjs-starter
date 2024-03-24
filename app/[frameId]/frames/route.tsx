@@ -143,7 +143,7 @@ const handleRequest = frames(async (ctx) => {
       <div tw="flex flex-col items-center">
         {frame && (
           <div tw="flex flex-col">
-            <div tw="flex py-8">🚀 Support my campaing to {frame[0]}</div>
+            <div tw="flex py-8">🚀 Support my campaign to {frame[0]}</div>
 
             <div tw="flex flex-col">
               📝 I will use the funds for:
