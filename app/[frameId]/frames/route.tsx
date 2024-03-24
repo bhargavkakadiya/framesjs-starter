@@ -64,7 +64,9 @@ const handleRequest = frames(async (ctx) => {
               <div tw="flex">Name: {frame[0]}</div>
               <div tw="flex">Description: {frame[1]}</div>
 
-              <div tw="flex">Goal: {formatEther(frame[2])} ETH</div>
+              <div tw="flex">
+                Goal: {formatEther(frame[3])} / {formatEther(frame[2])} ETH
+              </div>
             </div>
           </>
         )}
