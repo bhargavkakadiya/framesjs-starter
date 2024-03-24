@@ -11,6 +11,7 @@ import {
 } from "viem";
 import { optimism } from "viem/chains";
 import { storageRegistryABI } from "./contracts/storage-registry";
+import { fundraiserABI } from "./contracts/fundraiser";
 
 export async function POST(
   req: NextRequest
@@ -37,19 +38,25 @@ export async function POST(
     transport: http(),
   });
 
-  const storageRegistry = getContract({
-    address: STORAGE_REGISTRY_ADDRESS,
-    abi: storageRegistryABI,
+  const fundraiser = getContract({
+    address: "0x",
+    abi: fundraiserABI,
     client: publicClient,
   });
 
-  const unitPrice = await storageRegistry.read.price([units]);
+  // const storageRegistry = getContract({
+  //   address: STORAGE_REGISTRY_ADDRESS,
+  //   abi: storageRegistryABI,
+  //   client: publicClient,
+  // });
+
+  // const unitPrice = await storageRegistry.read.price([units]);
 
   return NextResponse.json({
     chainId: "eip155:10", // OP Mainnet 10
     method: "eth_sendTransaction",
     params: {
-      abi: storageRegistryABI as Abi,
+      abi: fundraiserABI,
       to: STORAGE_REGISTRY_ADDRESS,
       data: calldata,
       value: unitPrice.toString(),
