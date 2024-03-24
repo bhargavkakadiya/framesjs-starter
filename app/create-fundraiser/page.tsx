@@ -24,7 +24,7 @@ export default async function Home() {
 
   return (
     <div>
-      My fundraiser
+      Create fundraiser
       <Link href={createDebugUrl(url)} className="underline">
         Debug
       </Link>
