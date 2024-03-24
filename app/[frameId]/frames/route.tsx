@@ -47,6 +47,11 @@ const handleRequest = frames(async (ctx) => {
           target={`https://www.onceupon.gg/tx/${ctx.message.transactionId}`}>
           View on block explorer
         </Button>,
+        <Button
+          action="link"
+          target="https://framesjs-starter-puce.vercel.app/create-fundraiser">
+          Create Fundraiser
+        </Button>,
       ],
     };
   }
@@ -57,7 +62,7 @@ const handleRequest = frames(async (ctx) => {
   return {
     image: (
       <div tw="flex flex-col">
-        <div tw="flex py-8">Please Donate 🤲 </div>
+        <div tw="flex py-8">Please Support My Cause 🤲 </div>
         {frame && (
           <>
             <div tw="flex flex-col">
@@ -71,7 +76,7 @@ const handleRequest = frames(async (ctx) => {
           </>
         )}
 
-        <div tw="flex">Enter Eth and click donate to support the cause</div>
+        <div tw="flex">Enter ETH and donate </div>
       </div>
     ),
     imageOptions: {
@@ -81,8 +86,13 @@ const handleRequest = frames(async (ctx) => {
       <Button action="tx" target="../txdata" post_url="../frames">
         Donate
       </Button>,
+      <Button
+        action="link"
+        target="https://framesjs-starter-puce.vercel.app/create-fundraiser">
+        Create Fundraiser
+      </Button>,
     ],
-    textInput: "input ETH amount",
+    textInput: "0.01",
   };
 });
 
