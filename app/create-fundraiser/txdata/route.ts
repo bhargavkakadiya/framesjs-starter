@@ -30,9 +30,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     chainId: `eip155:${baseSepolia.id}`,
     method: "eth_call",
     params: {
-      abi: [],
+      abi: fundraiserABI[0].abi,
       data,
-      to: "0xfa343B1755a7197B2164B8cA55CF425AEE6C6efA",
+      to: "0x58864Ac09A3eFBd2bd2e05014e6D2d7dF6c9f6da",
       value: parseEther("0").toString(), // 0.00004 ETH
     },
   };
