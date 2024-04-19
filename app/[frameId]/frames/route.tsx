@@ -10,9 +10,15 @@ const publicClient = createPublicClient({
   transport: http(),
 });
 
-async function getData(frameId: number) {
-  console.log("input", frameId);
-  if (frameId === undefined || frameId === null) return null;
+async function getData(_frameId: number, pathname: string) {
+  let frameId = _frameId;
+  if (pathname.startsWith("/%5BframeId")) {
+    // [0]     pathname: '/%5BframeId%5D/frames',
+    frameId = parseInt(pathname.slice(12, -8));
+  }
+
+  if (frameId === undefined || frameId === null) {
+  }
 
   const data = await publicClient.readContract({
     address: "0x191A1Ba3737D15AC4f7d47a41117340a84D4d021",
@@ -30,6 +36,9 @@ const frames = createFrames({
 
 const handleRequest = frames(async (ctx) => {
   if (ctx.message?.transactionId) {
+    const txHash = ctx.message.transactionId;
+    // nullify the transactionId to prevent re-execution
+    ctx.message.transactionId = null;
     return {
       accepts: [
         {
@@ -106,8 +115,10 @@ const handleRequest = frames(async (ctx) => {
       },
       buttons: [
         // button for refreshing the frame
-        <Button action="post">←</Button>,
-        <Button action="link" target={`https://www.onceupon.gg/tx/${ctx.message.transactionId}`}>
+        <Button action="post" target={{ pathname: "/" }}>
+          ←
+        </Button>,
+        <Button action="link" target={`https://www.onceupon.gg/tx/${txHash}`}>
           View on block explorer
         </Button>,
         <Button action="link" target="https://fundcaster.vercel.app/create-fundraiser">
@@ -116,8 +127,9 @@ const handleRequest = frames(async (ctx) => {
       ],
     };
   }
+
   const frameId = parseInt(ctx.url.pathname.slice(1, -7));
-  const frame = await getData(frameId);
+  const frame = await getData(frameId, ctx.url.pathname);
 
   return {
     accepts: [
@@ -134,7 +146,7 @@ const handleRequest = frames(async (ctx) => {
       <div tw="flex flex-col items-center">
         {frame && (
           <div tw="flex flex-col">
-            <div tw="flex py-8">🚀 Support my campaign: {frame[0]}</div>
+            <div tw="flex py-8">🎯 Support my Campaign: {frame[0]}</div>
 
             <div tw="flex flex-col">
               📝 I will use the funds for:
@@ -249,7 +261,7 @@ const handleRequest = frames(async (ctx) => {
         Create Fundcaster
       </Button>,
     ],
-    textInput: "0.01 ETH",
+    textInput: "0.01",
   };
 });
 
