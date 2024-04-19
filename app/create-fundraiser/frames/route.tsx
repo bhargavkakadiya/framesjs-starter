@@ -88,7 +88,7 @@ const handleRequest = frames(async (ctx) => {
         <div tw="flex py-8 text-5xl px-auto text-center"> Create a fundraiser Campaign on farcaster</div>
         <div tw="flex flex-col">
           Please input below :<div></div>
-          <div>🚀 Whats your mission?</div>
+          <div>🎯 Whats your mission?</div>
           <div>📝 How you will use the funds?</div>
           <div>💰 Set a goal in ETH</div>
           <br />
