@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-import { notFound } from "next/navigation";
 import { createPublicClient, http } from "viem";
 import { baseSepolia } from "viem/chains";
-import { fundraiserABI } from "../contracts/fundraiser";
+import { fundraiserABI } from "../../abi/fundraiser";
 import { formatEther } from "viem";
 
 const publicClient = createPublicClient({
@@ -16,7 +15,7 @@ async function getData(frameId: number) {
   if (frameId === undefined || frameId === null) return null;
 
   const data = await publicClient.readContract({
-    address: "0xFFF5D3CD123bb65b61136EecE184440Ba70ECb9a",
+    address: "0x191A1Ba3737D15AC4f7d47a41117340a84D4d021",
     abi: fundraiserABI[0].abi,
     functionName: "fundRaiser",
     args: [BigInt(frameId)], // Convert frameId to bigint
@@ -46,12 +45,7 @@ const handleRequest = frames(async (ctx) => {
         <div tw="bg-green-700 text-white w-full h-full justify-center items-center flex flex-col">
           <div tw="pb-8 text-5xl">Thanks for your support!</div>
           {/* {ctx.message.transactionId} */}
-          <svg
-            width="451"
-            height="350"
-            viewBox="0 0 451 350"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="451" height="350" viewBox="0 0 451 350" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M22.5435 349.263C20.5765 349.263 19.1559 348.99 18.2817 348.443C17.4075 347.842 16.8611 347.05 16.6426 346.066C16.4787 345.083 16.3967 344.072 16.3967 343.034V298.204C16.3967 295.8 16.8611 294.161 17.79 293.287C18.7188 292.412 20.3853 291.975 22.7893 291.975H53.7689C54.8616 291.975 55.8724 292.084 56.8012 292.303C57.7301 292.467 58.4677 292.986 59.0141 293.86C59.6151 294.734 59.9156 296.21 59.9156 298.286C59.9156 300.253 59.6151 301.673 59.0141 302.548C58.4131 303.422 57.6208 303.968 56.6373 304.187C55.7085 304.351 54.6977 304.433 53.6049 304.433H28.8541V315.005H45.6552C46.7479 315.005 47.7041 315.087 48.5237 315.251C49.3979 315.415 50.0808 315.879 50.5726 316.644C51.0643 317.409 51.3102 318.693 51.3102 320.496C51.3102 322.244 51.0643 323.501 50.5726 324.266C50.0808 324.976 49.3979 325.413 48.5237 325.577C47.7041 325.741 46.7206 325.823 45.5732 325.823H28.8541V343.116C28.8541 344.154 28.7448 345.165 28.5263 346.148C28.3077 347.077 27.7614 347.842 26.8872 348.443C26.0676 348.99 24.6197 349.263 22.5435 349.263Z"
               fill="white"
@@ -111,14 +105,12 @@ const handleRequest = frames(async (ctx) => {
         aspectRatio: "1:1",
       },
       buttons: [
-        <Button
-          action="link"
-          target={`https://www.onceupon.gg/tx/${ctx.message.transactionId}`}>
+        // button for refreshing the frame
+        <Button action="post">←</Button>,
+        <Button action="link" target={`https://www.onceupon.gg/tx/${ctx.message.transactionId}`}>
           View on block explorer
         </Button>,
-        <Button
-          action="link"
-          target="https://fundcaster.vercel.app/create-fundraiser">
+        <Button action="link" target="https://fundcaster.vercel.app/create-fundraiser">
           Create Fundraiser
         </Button>,
       ],
@@ -126,7 +118,6 @@ const handleRequest = frames(async (ctx) => {
   }
   const frameId = parseInt(ctx.url.pathname.slice(1, -7));
   const frame = await getData(frameId);
-  console.log("frame", frame);
 
   return {
     accepts: [
@@ -143,7 +134,7 @@ const handleRequest = frames(async (ctx) => {
       <div tw="flex flex-col items-center">
         {frame && (
           <div tw="flex flex-col">
-            <div tw="flex py-8">🚀 Support my campaign to {frame[0]}</div>
+            <div tw="flex py-8">🚀 Support my campaign: {frame[0]}</div>
 
             <div tw="flex flex-col">
               📝 I will use the funds for:
@@ -155,13 +146,7 @@ const handleRequest = frames(async (ctx) => {
             </div>
           </div>
         )}
-
-        <svg
-          width="193"
-          height="150"
-          viewBox="0 0 451 350"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg width="193" height="150" viewBox="0 0 451 350" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M22.5435 349.263C20.5766 349.263 19.156 348.99 18.2818 348.443C17.4076 347.842 16.8612 347.05 16.6427 346.066C16.4787 345.083 16.3968 344.072 16.3968 343.034V298.204C16.3968 295.8 16.8612 294.161 17.79 293.287C18.7189 292.412 20.3853 291.975 22.7894 291.975H53.7689C54.8617 291.975 55.8725 292.084 56.8013 292.303C57.7302 292.467 58.4678 292.986 59.0141 293.86C59.6151 294.734 59.9157 296.21 59.9157 298.286C59.9157 300.253 59.6151 301.673 59.0141 302.548C58.4131 303.422 57.6209 303.968 56.6374 304.187C55.7086 304.351 54.6978 304.433 53.605 304.433H28.8542V315.005H45.6552C46.748 315.005 47.7041 315.087 48.5237 315.251C49.3979 315.415 50.0809 315.879 50.5726 316.644C51.0644 317.409 51.3102 318.693 51.3102 320.496C51.3102 322.244 51.0644 323.501 50.5726 324.266C50.0809 324.976 49.3979 325.413 48.5237 325.577C47.7041 325.741 46.7207 325.823 45.5733 325.823H28.8542V343.116C28.8542 344.154 28.7449 345.165 28.5263 346.148C28.3078 347.077 27.7614 347.842 26.8872 348.443C26.0676 348.99 24.6198 349.263 22.5435 349.263Z"
             fill="#018074"
@@ -221,7 +206,8 @@ const handleRequest = frames(async (ctx) => {
               y1="-18.5104"
               x2="141.671"
               y2="281.929"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="#4CCD98" />
               <stop offset="1" stop-color="#007F73" />
             </linearGradient>
@@ -231,7 +217,8 @@ const handleRequest = frames(async (ctx) => {
               y1="-19.6693"
               x2="137.515"
               y2="280.77"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="#4CCD98" />
               <stop offset="1" stop-color="#007F73" />
             </linearGradient>
@@ -241,7 +228,8 @@ const handleRequest = frames(async (ctx) => {
               y1="-19.6693"
               x2="313.2"
               y2="280.77"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="#4CCD98" />
               <stop offset="1" stop-color="#007F73" />
             </linearGradient>
@@ -256,9 +244,8 @@ const handleRequest = frames(async (ctx) => {
       <Button action="tx" target="../txdata" post_url="../frames">
         Donate ETH
       </Button>,
-      <Button
-        action="link"
-        target="https://fundcaster.vercel.app/create-fundraiser">
+      <Button action="post">↻</Button>,
+      <Button action="link" target="https://fundcaster.vercel.app/create-fundraiser">
         Create Fundcaster
       </Button>,
     ],

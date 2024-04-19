@@ -65,17 +65,19 @@ export default async function Home({ searchParams }: NextServerPageProps) {
       <Link href="/examples" className="underline">
         other examples
       </Link>
+      {/* Frame starts */}
       <FrameContainer
         postUrl="/frames"
         pathname="/"
         state={state}
-        previousFrame={previousFrame}
-      >
+        previousFrame={previousFrame}>
         {/* <FrameImage src="https://framesjs.org/og.png" /> */}
         <FrameImage aspectRatio="1.91:1">
           <div tw="w-full h-full bg-slate-700 text-white justify-center items-center flex flex-col">
             <div tw="flex flex-row">
-              {frameMessage?.inputText ? frameMessage.inputText : "Hello world"}
+              {frameMessage?.inputText
+                ? frameMessage.inputText
+                : "Welcome to FundCaster!"}
             </div>
             {frameMessage && (
               <div tw="flex flex-col">
@@ -102,15 +104,8 @@ export default async function Home({ searchParams }: NextServerPageProps) {
             )}
           </div>
         </FrameImage>
-        <FrameInput text="put some text here" />
-        <FrameButton>
-          {state?.active === "1" ? "Active" : "Inactive"}
-        </FrameButton>
-        <FrameButton>
-          {state?.active === "2" ? "Active" : "Inactive"}
-        </FrameButton>
-        <FrameButton action="link" target={`https://www.google.com`}>
-          External
+        <FrameButton action="link" target={`https://fundcaster.vercel.app`}>
+          Check out App
         </FrameButton>
       </FrameContainer>
     </div>

@@ -10,6 +10,9 @@ contract FundRaiser {
     address public owner;
     uint256 public frCount = 0;
 
+    // ann event for the fundraiser registration and its id
+    event FundRaiserRegistered(uint256 _fdId);
+
     constructor() {
         owner = msg.sender;
     }
@@ -57,9 +60,8 @@ contract FundRaiser {
         fundRaiser[frCount].fdId = frCount;
         fundRaiser[frCount].isAcceptingDonations = true;
         fundRaiser[frCount].beneficiary = msg.sender;
-        
+        emit FundRaiserRegistered(frCount);
         frCount++;
-        
     }
 
     function killFundRaiser(uint256 _fdId) public {
@@ -69,5 +71,13 @@ contract FundRaiser {
         fundRaiser[_fdId].isAcceptingDonations = false;
         payable(fundRaiser[_fdId].beneficiary).transfer(fundRaiser[_fdId].donationsLeft);
         fundRaiser[_fdId].donationsLeft = 0;
+    }
+
+    function getAllFundRaisers() public view returns (Structs.FundRaiser[] memory) {
+        Structs.FundRaiser[] memory fundRaisers = new Structs.FundRaiser[](frCount);
+        for (uint256 i = 0; i < frCount; i++) {
+            fundRaisers[i] = fundRaiser[i];
+        }
+        return fundRaisers;
     }
 }

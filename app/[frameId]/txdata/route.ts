@@ -4,7 +4,7 @@ import { encodeFunctionData, parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
 
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
-import { fundraiserABI } from "../contracts/fundraiser";
+import { fundraiserABI } from "../../abi/fundraiser";
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   const body: FrameRequest = await req.json();
@@ -14,11 +14,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   const donationAmt = formData.inputText.trim();
   const farcasterId = formData.fid;
   const castId = formData.castId.fid;
+  const fundraiserId = parseInt(formData.url?.split("/").pop() || "");
 
   const data = encodeFunctionData({
     abi: fundraiserABI[0].abi,
     functionName: "donate",
-    args: [0n],
+    args: [BigInt(fundraiserId)],
   });
 
   const txData: FrameTransactionResponse = {
@@ -27,7 +28,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     params: {
       abi: fundraiserABI[0].abi,
       data,
-      to: "0xFFF5D3CD123bb65b61136EecE184440Ba70ECb9a",
+      to: "0x191A1Ba3737D15AC4f7d47a41117340a84D4d021",
       value: parseEther(donationAmt).toString(),
     },
   };

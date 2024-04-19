@@ -23,11 +23,22 @@ export default async function Home() {
   const url = currentURL("/create-fundraiser");
 
   return (
-    <div>
-      Create fundraiser
-      <Link href={createDebugUrl(url)} className="underline">
-        Debug
-      </Link>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        background: "lightgreen",
+      }}>
+      <div>Create a fundraiser using frames on Base Sepolia ↓</div>
+      <div style={{ fontSize: "2em", marginTop: "1em" }}>
+        <Link
+          href="https://warpcast.com/~/developers/frames?url=https%3A%2F%2Ffundcaster.vercel.app%2Fcreate-fundraiser"
+          className="underline">
+          Warpcast
+        </Link>
+      </div>
     </div>
   );
 }
